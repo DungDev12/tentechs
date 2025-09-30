@@ -5,6 +5,7 @@ const DotCanvas = () => {
   const dots = useRef([]);
   const lines = useRef([]);
   const animationRef = useRef(null);
+  const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
   // Hàm tính khoảng cách giữa 2 chấm
   const calculateDistance = (dot1, dot2) => {
@@ -68,7 +69,7 @@ const DotCanvas = () => {
     for (const dot of dots.current) {
       ctx.beginPath();
       ctx.arc(dot.x, dot.y, 5, 0, 2 * Math.PI);
-      ctx.fillStyle = "#000";
+      ctx.fillStyle = isDarkMode ? "#fff" : "#000";
       ctx.fill();
     }
   };
