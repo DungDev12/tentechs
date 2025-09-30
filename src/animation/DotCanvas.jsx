@@ -16,7 +16,8 @@ const DotCanvas = () => {
   // Hàm khởi tạo dots
   const initializeDots = (width, height) => {
     const newDots = [];
-    for (let i = 0; i < 100; i++) {
+    let rangeDot = width < 768 ? 35 : width < 1024 ? 50 : 100;
+    for (let i = 0; i < rangeDot; i++) {
       newDots.push({
         x: Math.random() * width,
         y: Math.random() * height,
