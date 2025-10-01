@@ -53,8 +53,7 @@ function App() {
           ].map((item) => (
             <div
               key={item.label}
-              className="flex flex-col items-center p-4 bg-neutral rounded-box text-neutral-content"
-            >
+              className="flex flex-col items-center p-4 bg-neutral rounded-box text-neutral-content">
               <span className="countdown font-mono text-6xl sm:text-7xl md:text-8xl lg:text-9xl">
                 <span style={{ "--value": item.value }}>{item.value}</span>
               </span>

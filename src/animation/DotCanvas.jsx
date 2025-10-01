@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useWindowSize } from "../hook/useWindowSize";
 
 const DotCanvas = () => {
   const canvasRef = useRef(null);
@@ -6,6 +7,7 @@ const DotCanvas = () => {
   const lines = useRef([]);
   const animationRef = useRef(null);
   const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const { width, height } = useWindowSize();
 
   // Hàm tính khoảng cách giữa 2 chấm
   const calculateDistance = (dot1, dot2) => {
@@ -17,7 +19,7 @@ const DotCanvas = () => {
   // Hàm khởi tạo dots
   const initializeDots = (width, height) => {
     const newDots = [];
-    let rangeDot = width < 768 ? 35 : width < 1024 ? 50 : 100;
+    let rangeDot = width < 768 ? 35 : width < 1024 ? 50 : 75;
     for (let i = 0; i < rangeDot; i++) {
       newDots.push({
         x: Math.random() * width,
@@ -74,16 +76,17 @@ const DotCanvas = () => {
     }
   };
 
+  // Khởi tạo các chấm lần đầu
+  useEffect(() => {
+    initializeDots(width, height);
+  }, []);
+
   // useEffect cho animation
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    const width = window.innerWidth;
-    const height = window.innerHeight;
     canvas.width = width;
     canvas.height = height;
-
-    initializeDots(width, height);
 
     const animate = () => {
       update(width, height);
@@ -97,7 +100,7 @@ const DotCanvas = () => {
     return () => {
       cancelAnimationFrame(animationRef.current);
     };
-  }, []);
+  }, [width, height, isDarkMode]);
 
   return (
     <canvas
